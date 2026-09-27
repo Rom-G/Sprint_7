@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import ru.scooter.client.ApiClient;
 import ru.scooter.models.CourierModel;
 
+import java.util.Collections;
+
 import static io.restassured.RestAssured.given;
 import static ru.scooter.data.CourierData.COURIER_CREATE_PATH;
 import static ru.scooter.data.CourierData.COURIER_LOGIN_PATH;
@@ -31,12 +33,23 @@ public class CourierSteps {
                 .post(COURIER_LOGIN_PATH);
     }
 
-    @Step("Deleting a courier by ID")
-    public static void deleteCourier(int courierId) {
-        given()
+    @Step("Deleting a courier by Id")
+    public static Response deleteCourier(int courierId) {
+        return given()
+                .log().all()
                 .spec(ApiClient.requestSpec())
+                .body(Collections.singletonMap("id", Integer.toString(courierId)))
                 .when()
                 .delete(COURIER_CREATE_PATH + "/" + courierId);
     }
 
+    @Step("Deleting a courier without Id")
+    public static Response deleteCourier() {
+        return given()
+                .log().all()
+                .spec(ApiClient.requestSpec())
+                .body(Collections.singletonMap("id", null))
+                .when()
+                .delete(COURIER_CREATE_PATH);
+    }
 }
