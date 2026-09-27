@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.scooter.client.ApiClient;
 import ru.scooter.models.OrderModel;
+import ru.scooter.models.OrdersListModel;
 
 import java.util.Collections;
 
@@ -30,5 +31,15 @@ public class OrderSteps {
                 .body(Collections.singletonMap("track", track))
                 .when()
                 .put(ORDER_CANCEL_PATH);
+    }
+
+    @Step("Send GET request to /api/v1/orders")
+    public static OrdersListModel getAllOrders() {
+        return given()
+                .log().all()
+                .spec(ApiClient.requestSpec())
+                .when()
+                .get(ORDER_CREATE_PATH)
+                .as(OrdersListModel.class);
     }
 }
