@@ -1,8 +1,8 @@
 package ru.scooter.steps;
 
 import io.qameta.allure.Step;
-import ru.scooter.client.ApiClient;
 import io.restassured.response.Response;
+import ru.scooter.client.ApiClient;
 import ru.scooter.models.CourierModel;
 
 import static io.restassured.RestAssured.given;
