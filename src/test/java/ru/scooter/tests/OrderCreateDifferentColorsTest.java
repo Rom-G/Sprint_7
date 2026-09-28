@@ -3,7 +3,6 @@ package ru.scooter.tests;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -17,7 +16,6 @@ import static ru.scooter.steps.OrderSteps.*;
 public class OrderCreateDifferentColorsTest {
 
     private final OrderModel order;
-    private int track;
 
     public OrderCreateDifferentColorsTest(OrderModel order) {
         this.order = order;
@@ -38,17 +36,14 @@ public class OrderCreateDifferentColorsTest {
     @Description("The test checks whether it is possible to select a color when creating an order.")
     public void createOrderWithDifferentColorSuccess() {
         Response orderResp = createOrder(order);
-        track = orderResp.jsonPath().getInt("track");
+        int track = orderResp.jsonPath().getInt("track");
 
         orderResp
                 .then()
                 .log().all()
                 .statusCode(201)
                 .body("track", notNullValue());
-    }
 
-    @After
-    public void tearDown() {
         cancelOrder(track);
     }
 }
