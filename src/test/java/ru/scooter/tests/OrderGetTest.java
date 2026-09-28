@@ -4,7 +4,6 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
-import ru.scooter.models.OrderGet;
 import ru.scooter.models.OrderGetModel;
 import ru.scooter.models.OrderModel;
 
@@ -25,20 +24,15 @@ public class OrderGetTest {
         int track = createOrderResp.jsonPath().getInt("track");
 
         Response orderGetResp = getOrderResp(track);
-        orderGetResp
+        OrderGetModel orderGetModel = orderGetResp
                 .then()
                 .log().all()
-                .statusCode(200);
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(OrderGetModel.class);
 
-        if (orderGetResp.statusCode() == 200) {
-            OrderGet orderGet = orderGetResp
-                    .as(OrderGetModel.class)
-                    .getOrder();
-
-            assertNotNull("Order in response is null", orderGet);
-
-            cancelOrder(track);
-        }
+        assertNotNull("Order field in the response must not be null", orderGetModel.getOrder());
     }
 
     @Test
