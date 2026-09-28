@@ -57,7 +57,8 @@ public class OrderAcceptTest {
         acceptOrder(null, orderId)
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(ORDER_INSUFFICIENT_DATA));
 
         cancelOrder(track);
     }
@@ -76,7 +77,8 @@ public class OrderAcceptTest {
         acceptOrder(NON_EXISTENT_COURIER, orderId)
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(404)
+                .body("message", equalTo(ORDER_COURIER_NOT_EXIST));
 
         cancelOrder(track);
     }
@@ -93,7 +95,8 @@ public class OrderAcceptTest {
         acceptOrder(courierId, null)
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(ORDER_INSUFFICIENT_DATA));
     }
 
     @Test
@@ -108,7 +111,8 @@ public class OrderAcceptTest {
         acceptOrder(courierId, NON_EXISTENT_ORDER)
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(404)
+                .body("message", equalTo(ORDER_NOT_EXIST));
     }
 
     @After

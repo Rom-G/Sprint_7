@@ -19,10 +19,15 @@ public class OrderData {
             .future(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
     public final static String COMMENT = order.chuckNorris().fact();
     public final static int NON_EXISTENT_ORDER = order.number().numberBetween(1000000, 9999999);
+
     public final static String ORDER_CREATE_PATH = "/api/v1/orders";
     public final static String ORDER_ACCEPT_PATH = "/api/v1/orders/accept";
     public final static String ORDER_CANCEL_PATH = "/api/v1/orders/cancel";
     public final static String ORDER_GET_PATH = "/api/v1/orders/track";
+
+    public final static String ORDER_INSUFFICIENT_DATA = "Недостаточно данных для поиска";
+    public final static String ORDER_COURIER_NOT_EXIST = "Курьера с таким id не существует";
+    public final static String ORDER_NOT_EXIST = "Заказа с таким id не существует";
 
     public static OrderModel validOrder(Colors colors) {
         return OrderModel.builder()
