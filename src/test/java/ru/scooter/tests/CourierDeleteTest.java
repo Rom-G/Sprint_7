@@ -4,6 +4,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import ru.scooter.models.CourierModel;
 
@@ -13,13 +14,17 @@ import static ru.scooter.steps.CourierSteps.*;
 
 public class CourierDeleteTest {
 
+    @Before
+    public void setUp() {
+        CourierModel courier = new CourierModel(LOGIN, PASSWORD);
+        createCourier(courier);
+    }
+
     @Test
     @DisplayName("Check a courier can be delete")
     @Description("Basic test for /api/v1/courier/:id endpoint")
     public void deleteCourierSuccess() {
-        CourierModel courier = new CourierModel(LOGIN, PASSWORD);
-        createCourier(courier);
-        Response loginResp = loginCourier(courier);
+        Response loginResp = loginCourier(new CourierModel(LOGIN, PASSWORD));
         int courierId = loginResp.jsonPath().getInt("id");
 
         deleteCourier(courierId)
