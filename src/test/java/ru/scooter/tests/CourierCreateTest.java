@@ -50,7 +50,7 @@ public class CourierCreateTest {
                 .then()
                 .log().all()
                 .statusCode(400)
-                .body("message", equalTo(INSUFFICIENT_CREATE_COURIER));
+                .body("message", equalTo(INSUFFICIENT_COURIER_CREATE));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CourierCreateTest {
                 .then()
                 .log().all()
                 .statusCode(400)
-                .body("message", equalTo(INSUFFICIENT_CREATE_COURIER));
+                .body("message", equalTo(INSUFFICIENT_COURIER_CREATE));
     }
 
     @After

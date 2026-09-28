@@ -7,7 +7,7 @@ import io.qameta.allure.junit4.DisplayName;
 import io.qameta.allure.Description;
 import ru.scooter.models.CourierModel;
 
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static ru.scooter.data.CourierData.*;
 import static ru.scooter.steps.CourierSteps.*;
 
@@ -37,7 +37,8 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(null, PASSWORD))
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(INSUFFICIENT_COURIER_LOGIN));
     }
 
     @Test
@@ -50,7 +51,8 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN, null))
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(INSUFFICIENT_COURIER_LOGIN));
     }
 
     @Test
@@ -63,7 +65,8 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN + "e", PASSWORD))
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(404)
+                .body("message", equalTo(ACCOUNT_NOT_FOUND));
     }
 
     @Test
@@ -76,10 +79,9 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN, PASSWORD + "e"))
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(404)
+                .body("message", equalTo(ACCOUNT_NOT_FOUND));
     }
-
-
 
     @After
     public void tearDown() {

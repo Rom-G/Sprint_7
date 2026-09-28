@@ -37,7 +37,7 @@ public class CourierDeleteTest {
                 .then()
                 .log().all()
                 .statusCode(400)
-                .body("message", equalTo(INSUFFICIENT_DELETE_COURIER));
+                .body("message", equalTo(INSUFFICIENT_COURIER_DELETE));
     }
 
     @Test
