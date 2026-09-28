@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import ru.scooter.client.ApiClient;
 import ru.scooter.models.OrderModel;
-import ru.scooter.models.OrdersListModel;
 
 import java.util.Collections;
 
@@ -52,12 +51,11 @@ public class OrderSteps {
     }
 
     @Step("Send GET request to /api/v1/orders")
-    public static OrdersListModel getAllOrders() {
+    public static Response getAllOrders() {
         return given()
                 .log().all()
                 .spec(ApiClient.requestSpec())
-                .get(ORDER_CREATE_PATH)
-                .as(OrdersListModel.class);
+                .get(ORDER_CREATE_PATH);
     }
 
     @Step("Send GET request to /api/v1/orders/track")

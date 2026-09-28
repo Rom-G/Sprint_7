@@ -2,23 +2,30 @@ package ru.scooter.tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import org.junit.Test;
-import ru.scooter.models.Order;
+import ru.scooter.models.OrdersListModel;
 
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertTrue;
 import static ru.scooter.steps.OrderSteps.*;
 
 public class OrdersListTest {
 
     @Test
     @DisplayName("Getting a list of orders")
-    @Description("The test verifies that a list of orders is received in response")
-    public void checkResponseContainsOrders() {
-        List<Order> ordersList = getAllOrders().getOrders();
+    @Description("The test verifies that a list of orders in response is received orders")
+    public void getOrdersListNotEmpty() {
+        Response getAllOrdersResp = getAllOrders();
 
-        assertThat("Orders list is empty", ordersList.size(), greaterThan(0));
+        OrdersListModel ordersListModel = getAllOrdersResp
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .as(OrdersListModel.class);
+
+        int size = ordersListModel.getOrders().size();
+        assertTrue("List must be not empty, but size = " + size, size > 0);
     }
 }
