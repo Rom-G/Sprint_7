@@ -36,7 +36,8 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(409);
+                .statusCode(409)
+                .body("message", equalTo(LOGIN_ALREADY_USE));
     }
 
     @Test
@@ -48,7 +49,8 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(INSUFFICIENT_DATA));
     }
 
     @Test
@@ -60,7 +62,8 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(INSUFFICIENT_DATA));
     }
 
     @After
