@@ -21,7 +21,7 @@ public class OrderAcceptTest {
     @Test
     @DisplayName("Check the order can be accepted")
     @Description("Basic test for /api/v1/orders/accept/:id endpoint")
-    public void acceptOrderSuccess() {
+    public void acceptOrderSuccessTest() {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         createCourier(courier);
         Response loginResp = loginCourier(courier);
@@ -46,7 +46,7 @@ public class OrderAcceptTest {
     @Test
     @DisplayName("Check the order can't be accepted without courier id")
     @Description("Test verifies for /api/v1/orders/accept/:id endpoint if the courier id is not transmitted")
-    public void acceptOrderWithoutCourierIdFails() {
+    public void acceptOrderWithoutCourierIdFailsTest() {
         OrderModel order = validOrder(NO_COLOR);
         Response createOrderResp = createOrder(order);
         int track = createOrderResp.jsonPath().getInt("track");
@@ -66,7 +66,7 @@ public class OrderAcceptTest {
     @Test
     @DisplayName("Check the order can't be accepted with non-existent courier id")
     @Description("Test verifies that /api/v1/orders/accept/:id endpoint is working correctly")
-    public void acceptOrderWithFakeCourierIdFails() {
+    public void acceptOrderWithFakeCourierIdFailsTest() {
         OrderModel order = validOrder(NO_COLOR);
         Response createOrderResp = createOrder(order);
         int track = createOrderResp.jsonPath().getInt("track");
@@ -86,7 +86,7 @@ public class OrderAcceptTest {
     @Test
     @DisplayName("Check the order can't be accepted without order id")
     @Description("Test verifies for /api/v1/orders/accept/:id endpoint if the order id is not transmitted")
-    public void acceptOrderWithoutOrderIdFails() {
+    public void acceptOrderWithoutOrderIdFailsTest() {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         createCourier(courier);
         Response loginResp = loginCourier(courier);
@@ -102,7 +102,7 @@ public class OrderAcceptTest {
     @Test
     @DisplayName("Check the order can't be accepted with non-existent order id")
     @Description("Test verifies for /api/v1/orders/accept/:id endpoint if the order id is not transmitted")
-    public void acceptOrderWithFakeOrderIdFails() {
+    public void acceptOrderWithFakeOrderIdFailsTest() {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         createCourier(courier);
         Response loginResp = loginCourier(courier);
