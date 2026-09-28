@@ -16,7 +16,7 @@ public class CourierCreateTest {
     @Test
     @DisplayName("Check a courier can be created")
     @Description("Basic test for /api/v1/courier endpoint")
-    public void createCourierSuccess() {
+    public void createCourierSuccessTest() {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD, FIRSTNAME);
 
         createCourier(courier)
@@ -29,7 +29,7 @@ public class CourierCreateTest {
     @Test
     @DisplayName("Check impossible to create a duplicate courier")
     @Description("An important test for conflict prevention")
-    public void createCourierDuplicateFails() {
+    public void createCourierDuplicateFailsTest() {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD, FIRSTNAME);
         createCourier(courier);
 
@@ -43,7 +43,7 @@ public class CourierCreateTest {
     @Test
     @DisplayName("Check impossible to create a courier without login")
     @Description("The test protects against incorrect data in the database")
-    public void createCourierWithoutLoginFails() {
+    public void createCourierWithoutLoginFailsTest() {
         CourierModel courier = new CourierModel(null, PASSWORD, FIRSTNAME);
 
         createCourier(courier)
@@ -56,7 +56,7 @@ public class CourierCreateTest {
     @Test
     @DisplayName("Check impossible to create a courier without password")
     @Description("The test protects against incorrect data in the database")
-    public void createCourierWithoutPasswordFails() {
+    public void createCourierWithoutPasswordFailsTest() {
         CourierModel courier = new CourierModel(LOGIN, null, FIRSTNAME);
 
         createCourier(courier)
