@@ -34,7 +34,7 @@ public class OrderCreateDifferentColorsTest {
     @Test
     @DisplayName("Create order with different colors")
     @Description("The test checks whether it is possible to select a color when creating an order.")
-    public void createOrderWithDifferentColorSuccess() {
+    public void createOrderWithDifferentColorsSuccessTest() {
         Response orderResp = createOrder(order);
         int track = orderResp.jsonPath().getInt("track");
 
