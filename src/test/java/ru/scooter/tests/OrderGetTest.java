@@ -8,10 +8,10 @@ import ru.scooter.models.OrderGet;
 import ru.scooter.models.OrderGetModel;
 import ru.scooter.models.OrderModel;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNotNull;
+import static ru.scooter.data.OrderData.*;
 import static ru.scooter.data.OrderData.Colors.NO_COLOR;
-import static ru.scooter.data.OrderData.NON_EXISTENT_ORDER;
-import static ru.scooter.data.OrderData.validOrder;
 import static ru.scooter.steps.OrderSteps.*;
 
 public class OrderGetTest {
@@ -23,13 +23,22 @@ public class OrderGetTest {
         OrderModel order = validOrder(NO_COLOR);
         Response createOrderResp = createOrder(order);
         int track = createOrderResp.jsonPath().getInt("track");
-        OrderGet orderGet = getOrderResp(track)
-                .as(OrderGetModel.class)
-                .getOrder();
 
-        assertNotNull("Order in response is null", orderGet);
+        Response orderGetResp = getOrderResp(track);
+        orderGetResp
+                .then()
+                .log().all()
+                .statusCode(200);
 
-        cancelOrder(track);
+        if (orderGetResp.statusCode() == 200) {
+            OrderGet orderGet = orderGetResp
+                    .as(OrderGetModel.class)
+                    .getOrder();
+
+            assertNotNull("Order in response is null", orderGet);
+
+            cancelOrder(track);
+        }
     }
 
     @Test
@@ -38,7 +47,9 @@ public class OrderGetTest {
     public void getOrderWithoutTrackFails() {
         getOrderResp(null)
                 .then()
-                .statusCode(400);
+                .log().all()
+                .statusCode(400)
+                .body("message", equalTo(ORDER_INSUFFICIENT_DATA));
     }
 
     @Test
@@ -47,6 +58,8 @@ public class OrderGetTest {
     public void getOrderWithFakeTrackFails() {
         getOrderResp(NON_EXISTENT_ORDER)
                 .then()
-                .statusCode(404);
+                .log().all()
+                .statusCode(404)
+                .body("message", equalTo(ORDER_NOT_FOUND));
     }
 }

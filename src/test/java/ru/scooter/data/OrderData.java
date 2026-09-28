@@ -28,6 +28,7 @@ public class OrderData {
     public final static String ORDER_INSUFFICIENT_DATA = "Недостаточно данных для поиска";
     public final static String ORDER_COURIER_NOT_EXIST = "Курьера с таким id не существует";
     public final static String ORDER_NOT_EXIST = "Заказа с таким id не существует";
+    public final static String ORDER_NOT_FOUND = "Заказ не найден";
 
     public static OrderModel validOrder(Colors colors) {
         return OrderModel.builder()
