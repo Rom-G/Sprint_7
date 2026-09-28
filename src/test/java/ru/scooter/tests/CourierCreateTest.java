@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Test;
 import ru.scooter.models.CourierModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static ru.scooter.data.CourierData.*;
 import static ru.scooter.steps.CourierSteps.*;
@@ -22,7 +23,7 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", equalTo(true));
     }
 
@@ -36,7 +37,7 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(409)
+                .statusCode(SC_CONFLICT)
                 .body("message", equalTo(LOGIN_ALREADY_USE));
     }
 
@@ -49,7 +50,7 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(INSUFFICIENT_COURIER_CREATE));
     }
 
@@ -62,7 +63,7 @@ public class CourierCreateTest {
         createCourier(courier)
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(INSUFFICIENT_COURIER_CREATE));
     }
 
@@ -71,7 +72,7 @@ public class CourierCreateTest {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         Response loginResp = loginCourier(courier);
 
-        if (loginResp.statusCode() == 200) {
+        if (loginResp.statusCode() == SC_OK) {
             int courierId = loginResp.jsonPath().getInt("id");
             deleteCourier(courierId);
         }

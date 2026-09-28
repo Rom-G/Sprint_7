@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.scooter.models.CourierModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static ru.scooter.data.CourierData.*;
 import static ru.scooter.steps.CourierSteps.*;
@@ -30,7 +31,7 @@ public class CourierDeleteTest {
         deleteCourier(courierId)
                 .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("ok", equalTo(true));
     }
 
@@ -41,7 +42,7 @@ public class CourierDeleteTest {
         deleteCourier()
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(INSUFFICIENT_COURIER_DELETE));
     }
 
@@ -52,7 +53,7 @@ public class CourierDeleteTest {
         deleteCourier(NON_EXISTENT_COURIER)
                 .then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo(COURIER_NOT_EXIST));
     }
 
@@ -61,7 +62,7 @@ public class CourierDeleteTest {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         Response loginResp = loginCourier(courier);
 
-        if (loginResp.statusCode() == 200) {
+        if (loginResp.statusCode() == SC_OK) {
             int courierId = loginResp.jsonPath().getInt("id");
             deleteCourier(courierId);
         }

@@ -8,6 +8,7 @@ import io.qameta.allure.junit4.DisplayName;
 import io.qameta.allure.Description;
 import ru.scooter.models.CourierModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static ru.scooter.data.CourierData.*;
 import static ru.scooter.steps.CourierSteps.*;
@@ -27,7 +28,7 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN, PASSWORD))
                 .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("id", notNullValue());
     }
 
@@ -38,7 +39,7 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(null, PASSWORD))
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(INSUFFICIENT_COURIER_LOGIN));
     }
 
@@ -49,7 +50,7 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN, null))
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(INSUFFICIENT_COURIER_LOGIN));
     }
 
@@ -60,7 +61,7 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN + "e", PASSWORD))
                 .then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo(ACCOUNT_NOT_FOUND));
     }
 
@@ -71,7 +72,7 @@ public class CourierLoginTest {
         loginCourier(new CourierModel(LOGIN, PASSWORD + "e"))
                 .then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo(ACCOUNT_NOT_FOUND));
     }
 
@@ -80,7 +81,7 @@ public class CourierLoginTest {
         CourierModel courier = new CourierModel(LOGIN, PASSWORD);
         Response loginResp = loginCourier(courier);
 
-        if (loginResp.statusCode() == 200) {
+        if (loginResp.statusCode() == SC_OK) {
             int courierId = loginResp.jsonPath().getInt("id");
             deleteCourier(courierId);
         }

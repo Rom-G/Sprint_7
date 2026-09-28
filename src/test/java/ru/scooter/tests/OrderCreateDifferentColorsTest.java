@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.scooter.models.OrderModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.*;
 import static ru.scooter.data.OrderData.*;
 import static ru.scooter.steps.OrderSteps.*;
@@ -41,7 +42,7 @@ public class OrderCreateDifferentColorsTest {
         orderResp
                 .then()
                 .log().all()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("track", notNullValue());
 
         cancelOrder(track);

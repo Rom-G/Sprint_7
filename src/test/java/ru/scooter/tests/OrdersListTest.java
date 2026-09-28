@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.junit.Test;
 import ru.scooter.models.OrdersListModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.junit.Assert.assertTrue;
 import static ru.scooter.steps.OrderSteps.*;
 
@@ -21,7 +22,7 @@ public class OrdersListTest {
                 .then()
                 .log().all()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .extract()
                 .as(OrdersListModel.class);
 

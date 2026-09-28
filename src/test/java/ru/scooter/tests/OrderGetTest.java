@@ -7,6 +7,7 @@ import org.junit.Test;
 import ru.scooter.models.OrderGetModel;
 import ru.scooter.models.OrderModel;
 
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static ru.scooter.data.OrderData.*;
@@ -28,7 +29,7 @@ public class OrderGetTest {
                 .then()
                 .log().all()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .extract()
                 .as(OrderGetModel.class);
 
@@ -42,7 +43,7 @@ public class OrderGetTest {
         getOrderResp(null)
                 .then()
                 .log().all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(ORDER_INSUFFICIENT_DATA));
     }
 
@@ -53,7 +54,7 @@ public class OrderGetTest {
         getOrderResp(NON_EXISTENT_ORDER)
                 .then()
                 .log().all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo(ORDER_NOT_FOUND));
     }
 }
