@@ -23,7 +23,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Check a courier can log in")
     @Description("The test checks whether the created courier can be authorized")
-    public void authorizationCourierSuccess() {
+    public void authorizationCourierSuccessTest() {
         loginCourier(new CourierModel(LOGIN, PASSWORD))
                 .then()
                 .log().all()
@@ -34,7 +34,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Check impossible of logging in without a login")
     @Description("The test checks the handling of incorrect requests")
-    public void authorizationWithoutLoginFails() {
+    public void authorizationWithoutLoginFailsTest() {
         loginCourier(new CourierModel(null, PASSWORD))
                 .then()
                 .log().all()
@@ -45,7 +45,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Check impossible of logging in without a password")
     @Description("The test checks the handling of incorrect requests")
-    public void authorizationWithoutPasswordFails() {
+    public void authorizationWithoutPasswordFailsTest() {
         loginCourier(new CourierModel(LOGIN, null))
                 .then()
                 .log().all()
@@ -56,7 +56,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Error check if the login is entered incorrectly")
     @Description("The test checks the handling of incorrect login")
-    public void authorizationWithIncorrectLoginFails() {
+    public void authorizationWithIncorrectLoginFailsTest() {
         loginCourier(new CourierModel(LOGIN + "e", PASSWORD))
                 .then()
                 .log().all()
@@ -67,7 +67,7 @@ public class CourierLoginTest {
     @Test
     @DisplayName("Error check if the password is entered incorrectly")
     @Description("The test checks the handling of incorrect login")
-    public void authorizationWithIncorrectPasswordFails() {
+    public void authorizationWithIncorrectPasswordFailsTest() {
         loginCourier(new CourierModel(LOGIN, PASSWORD + "e"))
                 .then()
                 .log().all()
