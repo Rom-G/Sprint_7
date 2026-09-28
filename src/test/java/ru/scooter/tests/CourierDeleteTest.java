@@ -36,7 +36,8 @@ public class CourierDeleteTest {
         deleteCourier()
                 .then()
                 .log().all()
-                .statusCode(400);
+                .statusCode(400)
+                .body("message", equalTo(INSUFFICIENT_DELETE_COURIER));
     }
 
     @Test
@@ -46,7 +47,8 @@ public class CourierDeleteTest {
         deleteCourier(NON_EXISTENT_COURIER)
                 .then()
                 .log().all()
-                .statusCode(404);
+                .statusCode(404)
+                .body("message", equalTo(COURIER_NOT_EXIST));
     }
 
     @After

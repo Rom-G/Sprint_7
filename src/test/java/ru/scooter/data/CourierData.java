@@ -14,5 +14,7 @@ public class CourierData {
     public final static String COURIER_LOGIN_PATH = "/api/v1/courier/login";
 
     public final static String LOGIN_ALREADY_USE = "Этот логин уже используется";
-    public final static String INSUFFICIENT_DATA = "Недостаточно данных для создания учетной записи";
+    public final static String INSUFFICIENT_CREATE_COURIER = "Недостаточно данных для создания учетной записи";
+    public final static String INSUFFICIENT_DELETE_COURIER = "Недостаточно данных для удаления курьера";
+    public final static String COURIER_NOT_EXIST = "Курьера с таким id нет";
 }
