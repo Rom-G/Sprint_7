@@ -18,8 +18,11 @@ public class OrderData {
     public final static String DELIVERY_DATE = order.date()
             .future(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
     public final static String COMMENT = order.chuckNorris().fact();
+    public final static int NON_EXISTENT_ORDER = order.number().numberBetween(1000000, 9999999);
     public final static String ORDER_CREATE_PATH = "/api/v1/orders";
+    public final static String ORDER_ACCEPT_PATH = "/api/v1/orders/accept";
     public final static String ORDER_CANCEL_PATH = "/api/v1/orders/cancel";
+    public final static String ORDER_GET_PATH = "/api/v1/orders/track";
 
     public static OrderModel validOrder(Colors colors) {
         return OrderModel.builder()

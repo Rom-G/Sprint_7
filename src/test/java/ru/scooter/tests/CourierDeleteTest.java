@@ -43,7 +43,7 @@ public class CourierDeleteTest {
     @DisplayName("Checking for a request with a non-existent id")
     @Description("Checks the returned error code (expected 404)")
     public void deleteCourierWithFakeIdFails() {
-        deleteCourier(NON_EXISTENT_ID)
+        deleteCourier(NON_EXISTENT_COURIER)
                 .then()
                 .log().all()
                 .statusCode(404);
