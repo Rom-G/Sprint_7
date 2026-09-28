@@ -23,7 +23,7 @@ public class CourierDeleteTest {
     @Test
     @DisplayName("Check a courier can be delete")
     @Description("Basic test for /api/v1/courier/:id endpoint")
-    public void deleteCourierSuccess() {
+    public void deleteCourierSuccessTest() {
         Response loginResp = loginCourier(new CourierModel(LOGIN, PASSWORD));
         int courierId = loginResp.jsonPath().getInt("id");
 
@@ -37,7 +37,7 @@ public class CourierDeleteTest {
     @Test
     @DisplayName("Check for a request without an id")
     @Description("Checks the returned error code (expected 400)")
-    public void deleteCourierWithoutIdFails() {
+    public void deleteCourierWithoutIdFailsTest() {
         deleteCourier()
                 .then()
                 .log().all()
@@ -48,7 +48,7 @@ public class CourierDeleteTest {
     @Test
     @DisplayName("Checking for a request with a non-existent id")
     @Description("Checks the returned error code (expected 404)")
-    public void deleteCourierWithFakeIdFails() {
+    public void deleteCourierWithFakeIdFailsTest() {
         deleteCourier(NON_EXISTENT_COURIER)
                 .then()
                 .log().all()
