@@ -14,7 +14,7 @@ public class OrdersListTest {
     @Test
     @DisplayName("Getting a list of orders")
     @Description("The test verifies that a list of orders in response is received orders")
-    public void getOrdersListNotEmpty() {
+    public void getOrdersListNotEmptyTest() {
         Response getAllOrdersResp = getAllOrders();
 
         OrdersListModel ordersListModel = getAllOrdersResp
